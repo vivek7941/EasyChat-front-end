@@ -1,19 +1,19 @@
 import "./sidebar.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { MyContext } from "./myContext.jsx";
 import { v4 as uuidv4 } from "uuid"; 
 import logo from "./assets/ec-logo.png";
 
 function Sidebar() {
     const { allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats } = useContext(MyContext);
-    // Removed the error state that was showing "Error fetching threads"
 
+    // Live Render URL
     const API_URL = "https://easychat-4uo9.onrender.com/api/thread";
 
     const getAllThreads = async () => {
         try {
             const response = await fetch(API_URL); 
-            // If the backend is slow or "asleep", we just return silently instead of showing an error
+            // If the fetch fails, we simply do nothing so no error message appears
             if (!response.ok) return; 
 
             const res = await response.json();
@@ -26,8 +26,8 @@ function Sidebar() {
                 setAllThreads(filteredData);
             }
         } catch (err) {
-            // Silencing the UI error for a smoother experience
-            console.log("Syncing history..."); 
+            // Error is logged only to console, keeping the UI clean
+            console.log("Connecting to server..."); 
         }
     };
 
@@ -66,7 +66,7 @@ function Sidebar() {
             const response = await fetch(`${API_URL}/${threadId}`, { method: "DELETE" });  
             if (!response.ok) return;
             
-            // Instantly remove from UI
+            // Remove from UI immediately after deletion
             setAllThreads(prev => prev.filter(thread => thread.threadId !== threadId));
             
             if (threadId === currThreadId) {
@@ -88,6 +88,8 @@ function Sidebar() {
                     <i className="fa-solid fa-pen-to-square"></i>
                 </button>
 
+                {/* Removed the error div entirely from here */}
+
                 <ul className="history">
                     {allThreads?.map((thread) => (
                         <li key={thread.threadId}
@@ -98,7 +100,7 @@ function Sidebar() {
                             <span className="title-text">{thread.title}</span>
                             <i className="fa-solid fa-trash"
                                 onClick={(e) => {
-                                    e.stopPropagation(); // Prevents opening the chat when deleting
+                                    e.stopPropagation(); 
                                     deleteThread(thread.threadId);
                                 }}
                             ></i>
