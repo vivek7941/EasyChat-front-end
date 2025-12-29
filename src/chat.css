@@ -71,7 +71,14 @@ pre {
 
 .welcome-text {
     text-align: center;
-    margin-top: 20vh;
-    font-size: 2rem;
-    color: #676767;
+    margin-top: auto;      
+    margin-bottom: auto;   
+    width: 100%;           
+    font-size: 2.5rem;
+    color: #444;           
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;          
 }
