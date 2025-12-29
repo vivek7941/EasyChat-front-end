@@ -8,7 +8,7 @@ function Sidebar() {
     const { allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats } = useContext(MyContext);
 
     // Added a trailing slash to match your app.use("/api/thread", chatRoutes) setup
-    const API_URL = "https://easychat-4uo9.onrender.com";
+    const API_URL = "https://easychat-4uo9.onrender.com/api/thread";
 
     const getAllThreads = async () => {
         try {
