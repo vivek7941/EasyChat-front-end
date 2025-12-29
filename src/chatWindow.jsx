@@ -25,12 +25,12 @@ function ChatWindow() {
         setNewChat(false);
 
         try {
-            const response = await fetch("https://easychat-4uo9.onrender.com", { 
+                const response = await fetch("https://easychat-4uo9.onrender.com/api/thread", { 
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    message: prompt,
-                    threadId: currThreadId
+                message: prompt,
+                threadId: currThreadId
                 })
             });
 
